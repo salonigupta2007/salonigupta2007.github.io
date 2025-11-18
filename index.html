@@ -47,11 +47,11 @@
           <a class="text-sm hover:text-accent" href="#home">Home</a>
           <a class="text-sm hover:text-accent" href="#how">How It Works</a>
           <a class="text-sm hover:text-accent" href="#features">Features</a>
-          <a class="text-sm hover:text-accent" href="#pricing">Pricing</a>
+          <!-- <a class="text-sm hover:text-accent" href="#pricing">Pricing</a> -->
           <a class="text-sm hover:text-accent" href="#contact">Contact</a>
         </nav>
         <div class="flex items-center gap-3">
-          <button id="ctaDemo" class="hidden md:inline-flex items-center gap-2 bg-accent text-[#072233] px-4 py-2 rounded-md font-semibold shadow">Start Free Demo</button>
+          <!-- <button href="#contact" class="hidden md:inline-flex items-center gap-2 bg-accent text-[#072233] px-4 py-2 rounded-md font-semibold shadow">Start Free Demo</button> -->
           <button id="mobileBtn" class="md:hidden p-2 rounded-md hover:bg-slate-100 dark:hover:bg-slate-700">
             <span class="material-icons">menu</span>
           </button>
@@ -75,10 +75,15 @@
       <section id="home" class="max-w-6xl mx-auto px-4 py-16 lg:py-24 grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
         <div class="space-y-6">
           <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-tight">Eliminate Manual Audit Vouching. Automate Financial Verification with AI.</h1>
-          <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl">Our platform seamlessly integrates cash and digital payments with your accounting software, automating vouching and cutting audit preparation time by up to 90%.</p>
+          <p class="text-lg text-slate-600 dark:text-slate-300 max-w-xl">Our platform seamlessly integrates cash and digital payments with your accounting software, automating vouching and cutting audit preparation time.</p>
 
           <div class="flex flex-wrap gap-3">
-            <button id="startDemo" class="bg-accent text-[#072233] px-5 py-3 rounded-md font-semibold shadow">Start Free Demo</button>
+            <a href="#contact" 
+   class="bg-accent text-[#072233] px-5 py-3 rounded-md font-semibold shadow">
+   Start Free Demo
+</a>
+
+            <!-- <button id="startDemo" class="bg-accent text-[#072233] px-5 py-3 rounded-md font-semibold shadow">Start Free Demo</button> -->
             <!-- <button id="watchDemo" class="border border-slate-300 dark:border-slate-700 px-5 py-3 rounded-md font-semibold">Watch 60-Second Demo</button> -->
           </div>
 
@@ -88,8 +93,8 @@
                 <svg class="w-5 h-5 text-slate-600" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5v3l-10 5L2 20v-3z"/></svg>
               </div>
               <div>
-                <p class="text-sm font-semibold">Trusted by 500+ Indian businesses</p>
-                <p class="text-xs text-slate-500 dark:text-slate-400">SOC 2 compliant • Used by CA firms</p>
+                <!-- <p class="text-sm font-semibold">Trusted by 500+ Indian businesses</p> -->
+                <!-- <p class="text-xs text-slate-500 dark:text-slate-400">SOC 2 compliant • Used by CA firms</p> -->
               </div>
             </div>
           </div>
@@ -107,7 +112,7 @@
               autoplay
               style="width:100%;height:320px;">
             </lottie-player>
-            <p class="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">3-step explainer: Connect → Match → Post to Ledger</p>
+            <p class="mt-2 text-center text-sm text-slate-600 dark:text-slate-400">Connect → Verify → Review</p>
           </div>
         </div>
       </section>
@@ -115,8 +120,8 @@
       <!-- 5-step feature flow (detailed) -->
       <section id="features" class="bg-white dark:bg-slate-900 border-t border-b border-slate-100 dark:border-slate-800">
         <div class="max-w-6xl mx-auto px-4 py-16">
-          <h2 class="text-2xl font-bold text-center">Product & Features — 5 Simple Steps</h2>
-          <p class="text-center text-slate-600 dark:text-slate-400 mt-2">From data ingestion to an always-updated general ledger.</p>
+          <h2 class="text-2xl font-bold text-center">Product & Features — 3 Simple Steps</h2>
+          <p class="text-center text-slate-600 dark:text-slate-400 mt-2">From data ingestion to an always-updated ledger verification.</p>
 
           <div class="mt-10 grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- Step 1 -->
@@ -124,7 +129,7 @@
               <div class="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold">1</div>
               <div>
                 <h3 class="font-semibold text-lg">Automated Data Ingestion</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-lg">Connect bank APIs, UPI wallets (PhonePe, Paytm, Google Pay) and upload paper receipts — OCR digitizes the paper trail automatically.</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-lg">Connect bank statement and upload paper receipts.</p>
                 <div class="flex flex-wrap gap-2 mt-3">
                   <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs">Bank API</span>
                   <span class="px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-800 text-xs">PhonePe</span>
@@ -170,23 +175,23 @@
             </div>
 
             <!-- Step 4 -->
-            <div class="flex gap-4 items-start">
+            <!-- <div class="flex gap-4 items-start">
               <div class="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold">4</div>
               <div>
                 <h3 class="font-semibold text-lg">Direct-to-Ledger Posting</h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-lg">Verified transactions generate accurate journal entries using rule-based + AI account classification (e.g., payment to 'Airtel' → Telephone Expense).</p>
               </div>
-            </div>
+            </div> -->
 
             <!-- Step 5 -->
-            <div class="flex gap-4 items-start">
-              <div class="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold">5</div>
+            <!-- <div class="flex gap-4 items-start">
+              <div class="w-14 h-14 rounded-lg bg-accent/10 flex items-center justify-center text-accent font-bold">4</div>
               <div>
                 <h3 class="font-semibold text-lg">Real-Time, Always-Updated General Ledger</h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400 mt-2 max-w-lg">Your GL updates instantly as transactions are processed — always accurate and audit-ready.</p>
               </div>
             </div>
-          </div>
+          </div> -->
 
           <div class="mt-10 text-center">
             <button class="bg-accent text-[#072233] px-6 py-3 rounded-md font-semibold">Ready to eliminate manual vouching? Start Free Demo</button>
@@ -196,7 +201,7 @@
 
       <!-- How It Works (infographic) -->
       <section id="how" class="max-w-6xl mx-auto px-4 py-16">
-        <h2 class="text-2xl font-bold text-center">How It Works — In 5 Simple Steps</h2>
+        <h2 class="text-2xl font-bold text-center">How It Works — In 4 Simple Steps</h2>
         <div class="mt-10 relative">
           <div class="hidden md:block absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-accent/40 to-transparent"></div>
           <div class="space-y-10">
@@ -207,7 +212,7 @@
               </div>
               <div>
                 <h3 class="font-semibold">Connect</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400">Link your banks, PhonePe, Paytm, Google Pay, and other payment sources securely.</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400">Link your bank statement through payment sources like banks, PhonePe, Paytm, Google Pay, and other payment sources.</p>
               </div>
             </div>
 
@@ -217,7 +222,7 @@
               </div>
               <div>
                 <h3 class="font-semibold">Upload</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400">Drag & drop invoices or snap photos with your mobile — OCR digitizes receipts.</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400">Drag & drop invoices or snap photos with your mobile.</p>
               </div>
             </div>
 
@@ -231,7 +236,7 @@
               </div>
             </div>
 
-            <div class="flex items-start gap-6">
+            <!-- <div class="flex items-start gap-6">
               <div class="flex-shrink-0">
                 <div class="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center font-bold">4</div>
               </div>
@@ -239,15 +244,15 @@
                 <h3 class="font-semibold">Create Ledger / Journal</h3>
                 <p class="text-sm text-slate-600 dark:text-slate-400">Auto-generate accurate journal entries and classify accounts using AI + rules.</p>
               </div>
-            </div>
+            </div> -->
 
             <div class="flex items-start gap-6">
               <div class="flex-shrink-0">
-                <div class="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center font-bold">5</div>
+                <div class="w-14 h-14 rounded-full bg-accent text-white flex items-center justify-center font-bold">4</div>
               </div>
               <div>
                 <h3 class="font-semibold">Review</h3>
-                <p class="text-sm text-slate-600 dark:text-slate-400">Get a 100% clean, audit-ready ledger and export reports instantly.</p>
+                <p class="text-sm text-slate-600 dark:text-slate-400">Get a 100% clean, audit-ready result and export reports instantly.</p>
               </div>
             </div>
           </div>
@@ -339,7 +344,7 @@
     <div class="p-6 rounded-lg bg-slate-50 dark:bg-slate-800">
       <h4 class="font-semibold">Office</h4>
       <p class="text-sm text-slate-600 dark:text-slate-400 mt-2">
-        Mumbai, India • SOC 2 compliant • VAT & GST-ready exports
+        Agra, India • SOC 2 compliant • VAT & GST-ready exports
       </p>
       <!-- … your trusted-by badges … -->
     </div>
@@ -558,3 +563,4 @@
   </script>
 </body>
 </html>
+
