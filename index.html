@@ -1,639 +1,183 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
+<html lang="en" class="light">
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Flamora Candles - Premium Handcrafted Candles</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    />
-    <link rel="manifest" href="/manifest.json" />
-    <meta name="theme-color" content="#fefaf6" />
-    <style>
-      body {
-        font-family: "Inter", sans-serif;
-        scroll-behavior: smooth;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-      .light-theme {
-        background-color: #fefaf6;
-        color: #333;
-      }
-      .dark-theme {
-        background-color: #1a1a1a;
-        color: #e0e0e0;
-      }
-      .hero {
-        background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-          url("https://images.unsplash.com/photo-1612293905607-b003de9e54fb?q=80&w=1974&auto=format&fit=crop")
-            center/cover no-repeat;
-        min-height: 100vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        color: white;
-        position: relative;
-      }
-      .parallax-bg {
-        background-attachment: fixed;
-      }
-      .product-card {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        border-radius: 12px;
-        overflow: hidden;
-      }
-      .product-card:hover {
-        transform: translateY(-10px);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-      }
-      .btn-primary {
-        background-color: #c96e38;
-        color: white;
-        transition: background-color 0.3s ease, transform 0.2s ease;
-      }
-      .btn-primary:hover {
-        background-color: #a9562e;
-        transform: scale(1.05);
-      }
-      .custom-cursor {
-        position: fixed;
-        width: 20px;
-        height: 20px;
-        background: rgba(201, 110, 56, 0.5);
-        border-radius: 50%;
-        pointer-events: none;
-        transform: translate(-50%, -50%);
-        z-index: 9999;
-        transition: transform 0.1s ease;
-      }
-      .custom-cursor.hovered {
-        transform: translate(-50%, -50%) scale(1.5);
-        background: rgba(201, 110, 56, 0.8);
-      }
-      .toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background: #c96e38;
-        color: white;
-        padding: 10px 20px;
-        border-radius: 8px;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-      }
-      .toast.show {
-        opacity: 1;
-      }
-    </style>
-  </head>
-  <body class="light-theme">
-    <div id="root"></div>
-    <div class="custom-cursor" id="custom-cursor"></div>
-    <div class="toast" id="toast"></div>
+    <title>VouchAI - Automate Financial Verification</title>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/react@17.0.2/umd/react.production.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/react-dom@17.0.2/umd/react-dom.production.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.5/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@babel/standalone@7.18.9/babel.min.js"></script>
-    <script type="text/babel">
-      const { useState, useEffect, useContext, createContext } = React;
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 
-      // App Context for Cart and Theme
-      const AppContext = createContext();
-      const AppProvider = ({ children }) => {
-        const [cart, setCart] = useState([]);
-        const [theme, setTheme] = useState("light");
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet" />
 
-        const addToCart = (item) => {
-          setCart([...cart, item]);
-          showToast(`${item.name} added to cart!`);
-        };
-
-        const toggleTheme = () => {
-          setTheme(theme === "light" ? "dark" : "light");
-        };
-
-        return (
-          <AppContext.Provider value={{ cart, addToCart, theme, toggleTheme }}>
-            {children}
-          </AppContext.Provider>
-        );
-      };
-
-      // Products Data
-      const products = [
-        {
-          id: 1,
-          name: "Beeswax Candle",
-          price: 250,
-          description: "Natural beeswax with a warm, honey-like aroma.",
-          image: "assests/1.jpeg",
-          type: "Beeswax",
-        },
-        {
-          id: 2,
-          name: "Soy Candle",
-          price: 200,
-          description: "Crafted from soybean wax, burns cleaner and longer.",
-          image: "assests/2.jpeg",
-          type: "Soy",
-        },
-        {
-          id: 3,
-          name: "Gel Candle",
-          price: 180,
-          description: "Transparent gel with embedded decorative objects.",
-          image: "assests/3.jpeg",
-          type: "Gel",
-        },
-        {
-          id: 4,
-          name: "Coconut Wax Candle",
-          price: 250,
-          description: "Creamy, natural coconut wax with a smooth burn.",
-          image: "assests/4.jpeg",
-          type: "Coconut",
-        },
-        {
-          id: 5,
-          name: "Palm Wax Combo Pack",
-          price: 600,
-          description: "Palm wax with crystalline patterns.",
-          image: "assests/5.jpeg",
-          type: "Palm",
-        },
-        {
-          id: 6,
-          name: "Canola Wax Mini Set",
-          price: 400,
-          description: "Biodegradable canola wax, eco-friendly.",
-          image: "assests/6.jpeg",
-          type: "Canola",
-        },
-        {
-          id: 7,
-          name: "Rice Bran Luxury Candle",
-          price: 300,
-          description: "Eco-conscious rice bran wax for smooth burning.",
-          image: "assests/7.jpeg",
-          type: "Rice Bran",
-        },
-      ];
-
-      // Navbar Component
-      const Navbar = () => {
-        const { cart, theme, toggleTheme } = useContext(AppContext);
-        const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-        return (
-          <nav className="sticky top-0 bg-white dark:bg-gray-900 shadow-lg z-50">
-            <div className="container mx-auto px-4 py-4 flex justify-between items-center">
-              <a href="#" className="text-2xl font-bold text-[#c96e38]">
-                Flamora
-              </a>
-              <button
-                className="md:hidden focus:outline-none"
-                onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}
-              >
-                <i
-                  className={`fas ${
-                    isMobileMenuOpen ? "fa-times" : "fa-bars"
-                  } text-2xl`}
-                ></i>
-              </button>
-              <ul className="hidden md:flex space-x-6 text-gray-700 dark:text-gray-200">
-                <li>
-                  <a href="#home" className="hover:text-[#c96e38] transition">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#products"
-                    className="hover:text-[#c96e38] transition"
-                  >
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="hover:text-[#c96e38] transition">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#contact"
-                    className="hover:text-[#c96e38] transition"
-                  >
-                    Contact
-                  </a>
-                </li>
-                <li className="relative">
-                  <a href="#cart" className="hover:text-[#c96e38] transition">
-                    <i className="fas fa-shopping-cart"></i>
-                    <span className="cart-counter">{cart.length}</span>
-                  </a>
-                </li>
-                <li>
-                  <button
-                    onClick={toggleTheme}
-                    className="hover:text-[#c96e38] transition"
-                  >
-                    <i
-                      className={`fas ${
-                        theme === "light" ? "fa-moon" : "fa-sun"
-                      }`}
-                    ></i>
-                  </button>
-                </li>
-              </ul>
-              <ul
-                className={`flex-col space-y-4 absolute top-16 left-0 w-full bg-white dark:bg-gray-900 shadow-lg p-4 md:hidden ${
-                  isMobileMenuOpen ? "flex" : "hidden"
-                }`}
-              >
-                <li>
-                  <a href="#home" className="hover:text-[#c96e38]">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#products" className="hover:text-[#c96e38]">
-                    Products
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="hover:text-[#c96e38]">
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="hover:text-[#c96e38]">
-                    Contact
-                  </a>
-                </li>
-                <li>
-                  <a href="#cart" className="hover:text-[#c96e38]">
-                    <i className="fas fa-shopping-cart"></i> Cart ({cart.length}
-                    )
-                  </a>
-                </li>
-                <li>
-                  <button
-                    onClick={toggleTheme}
-                    className="hover:text-[#c96e38]"
-                  >
-                    <i
-                      className={`fas ${
-                        theme === "light" ? "fa-moon" : "fa-sun"
-                      }`}
-                    ></i>{" "}
-                    {theme === "light" ? "Dark" : "Light"} Mode
-                  </button>
-                </li>
-              </ul>
-            </div>
-          </nav>
-        );
-      };
-
-      // Hero Component
-      const Hero = () => (
-        <section className="hero parallax-bg" id="home">
-          <div className="container mx-auto px-4">
-            <h1 className="text-5xl md:text-7xl font-bold mb-4 animate-fade-in">
-              Elevate Your Space
-            </h1>
-            <p className="text-xl md:text-2xl mb-6 animate-fade-in">
-              Handcrafted candles to calm, inspire, and delight.
-            </p>
-            <a
-              href="#products"
-              className="btn-primary px-6 py-3 rounded-full text-lg animate-fade-in"
-            >
-              Shop Now
-            </a>
-          </div>
-        </section>
-      );
-
-      // Product Component
-      const ProductCard = ({ product }) => {
-        const { addToCart } = useContext(AppContext);
-        return (
-          <div className="product-card bg-white dark:bg-gray-800 animate-fade-in">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="w-full h-64 object-cover lazy"
-              loading="lazy"
-            />
-            <div className="p-6">
-              <h3 className="text-xl font-semibold mb-2 dark:text-white">
-                {product.name}
-              </h3>
-              <p className="text-gray-600 dark:text-gray-300 mb-4">
-                {product.description}
-              </p>
-              <p className="text-[#c96e38] font-bold mb-4">₹{product.price}</p>
-              <button
-                className="btn-primary w-full py-2 rounded-lg"
-                onClick={() => addToCart(product)}
-                aria-label={`Add ${product.name} to cart`}
-              >
-                Add to Cart
-              </button>
-            </div>
-          </div>
-        );
-      };
-
-      // Products Component
-      const Products = () => {
-        const [filter, setFilter] = useState("All");
-        const [priceRange, setPriceRange] = useState([0, 1000]);
-
-        const filteredProducts = products.filter(
-          (product) =>
-            (filter === "All" || product.type === filter) &&
-            product.price >= priceRange[0] &&
-            product.price <= priceRange[1]
-        );
-
-        return (
-          <section className="py-16" id="products">
-            <div className="container mx-auto px-4">
-              <h2 className="text-4xl font-bold text-center text-[#c96e38] mb-12">
-                Signature Candles
-              </h2>
-              <div className="mb-8 flex flex-col md:flex-row justify-between items-center">
-                <div className="mb-4 md:mb-0">
-                  <label className="mr-2 text-gray-700 dark:text-gray-200">
-                    Filter by Type:
-                  </label>
-                  <select
-                    className="p-2 border rounded-lg dark:bg-gray-800 dark:text-white"
-                    value={filter}
-                    onChange={(e) => setFilter(e.target.value)}
-                  >
-                    <option>All</option>
-                    <option>Beeswax</option>
-                    <option>Soy</option>
-                    <option>Gel</option>
-                    <option>Coconut</option>
-                    <option>Palm</option>
-                    <option>Canola</option>
-                    <option>Rice Bran</option>
-                  </select>
-                </div>
-                <div>
-                  <label className="mr-2 text-gray-700 dark:text-gray-200">
-                    Price Range: ₹{priceRange[0]} - ₹{priceRange[1]}
-                  </label>
-                  <input
-                    type="range"
-                    min="0"
-                    max="1000"
-                    value={priceRange[1]}
-                    onChange={(e) =>
-                      setPriceRange([0, parseInt(e.target.value)])
-                    }
-                    className="w-48"
-                  />
-                </div>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                {filteredProducts.map((product) => (
-                  <ProductCard key={product.id} product={product} />
-                ))}
-              </div>
-            </div>
-          </section>
-        );
-      };
-
-      // About Component
-      const About = () => (
-        <section className="py-16 bg-[#fff5f0] dark:bg-gray-900" id="about">
-          <div className="container mx-auto px-4 text-center">
-            <h2 className="text-4xl font-bold text-[#c96e38] mb-6 animate-fade-in">
-              About Flamora
-            </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto animate-fade-in">
-              At Flamora, we craft each candle with passion and precision, using
-              natural soy wax, lead-free wicks, and premium essential oils. Our
-              candles are eco-friendly, safe, and designed to elevate your
-              space.
-            </p>
-          </div>
-        </section>
-      );
-
-      // Contact Component
-      const Contact = () => {
-        const [isSubmitting, setIsSubmitting] = useState(false);
-
-        const handleSubmit = (e) => {
-          e.preventDefault();
-          setIsSubmitting(true);
-          setTimeout(() => {
-            showToast("Message sent successfully!");
-            setIsSubmitting(false);
-            e.target.reset();
-          }, 1000);
-        };
-
-        return (
-          <section className="py-16" id="contact">
-            <div className="container mx-auto px-4">
-              <h2 className="text-4xl font-bold text-center text-[#c96e38] mb-12 animate-fade-in">
-                Get in Touch
-              </h2>
-              <form className="max-w-lg mx-auto" onSubmit={handleSubmit}>
-                <div className="mb-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-gray-700 dark:text-gray-200 mb-2"
-                  >
-                    Name
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c96e38] dark:bg-gray-800 dark:text-white"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="email"
-                    className="block text-gray-700 dark:text-gray-200 mb-2"
-                  >
-                    Email
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c96e38] dark:bg-gray-800 dark:text-white"
-                    required
-                  />
-                </div>
-                <div className="mb-4">
-                  <label
-                    htmlFor="message"
-                    className="block text-gray-700 dark:text-gray-200 mb-2"
-                  >
-                    Message
-                  </label>
-                  <textarea
-                    id="message"
-                    rows="5"
-                    className="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-[#c96e38] dark:bg-gray-800 dark:text-white"
-                    required
-                  ></textarea>
-                </div>
-                <button
-                  type="submit"
-                  className="btn-primary w-full py-3 rounded-lg flex items-center justify-center"
-                  disabled={isSubmitting}
-                >
-                  {isSubmitting ? (
-                    <i className="fas fa-spinner fa-spin mr-2"></i>
-                  ) : null}
-                  Send Message
-                </button>
-              </form>
-            </div>
-          </section>
-        );
-      };
-
-      // Footer Component
-      const Footer = () => (
-        <footer className="bg-[#fff5f0] dark:bg-gray-900 py-8">
-          <div className="container mx-auto px-4">
-            <p className="text-gray-600 dark:text-gray-300 text-center">
-              © 2025 Flamora Candles. All rights reserved.
-            </p>
-            <div className="flex justify-center space-x-4 mt-4">
-              <a
-                href="#"
-                className="text-gray-600 dark:text-gray-300 hover:text-[#c96e38]"
-              >
-                <i className="fab fa-instagram"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 dark:text-gray-300 hover:text-[#c96e38]"
-              >
-                <i className="fab fa-facebook"></i>
-              </a>
-              <a
-                href="#"
-                className="text-gray-600 dark:text-gray-300 hover:text-[#c96e38]"
-              >
-                <i className="fab fa-twitter"></i>
-              </a>
-            </div>
-          </div>
-        </footer>
-      );
-
-      // Main App Component
-      const App = () => {
-        const { theme } = useContext(AppContext);
-
-        useEffect(() => {
-          document.body.className = `${theme}-theme`;
-          // GSAP Animations
-          gsap.utils.toArray(".animate-fade-in").forEach((el, i) => {
-            gsap.fromTo(
-              el,
-              { opacity: 0, y: 30 },
-              {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                delay: i * 0.2,
-                scrollTrigger: {
-                  trigger: el,
-                  start: "top 80%",
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        primary: "#13ec5b",
+                        "background-light": "#f6f8f6",
+                        "background-dark": "#102216",
+                    },
+                    fontFamily: {
+                        display: ["Space Grotesk", "sans-serif"],
+                    },
                 },
-              }
-            );
-          });
-        }, [theme]);
-
-        return (
-          <div>
-            <Navbar />
-            <Hero />
-            <Products />
-            <About />
-            <Contact />
-            <Footer />
-          </div>
-        );
-      };
-
-      // Utility Functions
-      const showToast = (message) => {
-        const toast = document.getElementById("toast");
-        toast.textContent = message;
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 3000);
-      };
-
-      // Custom Cursor
-      const cursor = document.getElementById("custom-cursor");
-      document.addEventListener("mousemove", (e) => {
-        cursor.style.left = `${e.clientX}px`;
-        cursor.style.top = `${e.clientY}px`;
-      });
-      document.querySelectorAll("button, a").forEach((el) => {
-        el.addEventListener("mouseenter", () =>
-          cursor.classList.add("hovered")
-        );
-        el.addEventListener("mouseleave", () =>
-          cursor.classList.remove("hovered")
-        );
-      });
-
-      // Lazy Loading
-      const lazyImages = document.querySelectorAll("img.lazy");
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.src = entry.target.src;
-            entry.target.classList.remove("lazy");
-            observer.unobserve(entry.target);
-          }
-        });
-      });
-      lazyImages.forEach((img) => observer.observe(img));
-
-      // PWA Service Worker
-      if ("serviceWorker" in navigator) {
-        navigator.serviceWorker
-          .register("/sw.js")
-          .catch((err) => console.error("Service Worker Error:", err));
-      }
-
-      // Render App
-      ReactDOM.render(
-        <AppProvider>
-          <App />
-        </AppProvider>,
-        document.getElementById("root")
-      );
+            },
+        };
     </script>
-  </body>
+</head>
+
+<body class="bg-background-light dark:bg-background-dark font-display text-[#1A2B44] dark:text-[#F8F9FA]">
+<div class="relative min-h-screen flex flex-col">
+
+    <!-- Navbar -->
+    <header class="sticky top-0 z-50 bg-background-light/80 dark:bg-background-dark/80 backdrop-blur-sm border-b border-gray-200 dark:border-gray-700">
+        <div class="max-w-6xl mx-auto flex justify-between px-4 py-3">
+
+            <div class="flex items-center gap-3">
+                <span class="text-primary font-bold text-xl">VouchAI</span>
+            </div>
+
+            <nav class="hidden md:flex gap-6">
+                <a href="#" class="hover:text-primary">Home</a>
+                <a href="#" class="hover:text-primary">How It Works</a>
+                <a href="#" class="hover:text-primary">Features</a>
+                <a href="#" class="hover:text-primary">Pricing</a>
+            </nav>
+
+            <button onclick="openContactForm()" class="px-4 py-2 bg-primary text-[#1A2B44] rounded-lg font-bold hover:bg-opacity-80">
+                Request Demo
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="max-w-6xl mx-auto px-4 py-20 grid md:grid-cols-2 gap-12">
+        <div class="flex flex-col justify-center">
+            <h1 class="text-4xl md:text-6xl font-black leading-tight">
+                Eliminate Manual Audit Vouching.<br /> Automate Financial Verification with AI.
+            </h1>
+            <p class="mt-6 text-lg text-slate-600 dark:text-slate-400">
+                Integrate cash and digital payments with your accounting software to automate vouching and cut audit prep time by 90%.
+            </p>
+
+            <div class="mt-6 flex gap-4">
+                <button class="px-6 py-3 bg-primary text-[#1A2B44] rounded-lg text-lg font-bold">Start Free Demo</button>
+                <button class="px-6 py-3 border border-primary text-primary rounded-lg text-lg font-bold">Watch Demo</button>
+            </div>
+        </div>
+
+        <div class="flex items-center justify-center">
+            <div class="w-full max-w-md h-64 bg-gray-200 rounded-xl flex justify-center items-center text-gray-500">
+                Animated explainer placeholder
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="max-w-6xl mx-auto px-4 py-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-center mb-12">How VouchAI Works</h2>
+
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+
+            <div class="p-5 bg-primary/10 rounded-xl text-center">
+                <h3 class="font-bold mb-2">1. Data Ingestion</h3>
+                <p class="text-sm text-slate-600">Bank APIs, Wallets, OCR receipts.</p>
+            </div>
+
+            <div class="p-5 bg-primary/10 rounded-xl text-center">
+                <h3 class="font-bold mb-2">2. AI Vouching</h3>
+                <p class="text-sm text-slate-600">Matches transactions, flags anomalies.</p>
+            </div>
+
+            <div class="p-5 bg-primary/10 rounded-xl text-center">
+                <h3 class="font-bold mb-2">3. Audit Dashboard</h3>
+                <p class="text-sm text-slate-600">Track verification in real-time.</p>
+            </div>
+
+            <div class="p-5 bg-primary/10 rounded-xl text-center">
+                <h3 class="font-bold mb-2">4. Ledger Posting</h3>
+                <p class="text-sm text-slate-600">Auto journal entries with AI rules.</p>
+            </div>
+
+            <div class="p-5 bg-primary/10 rounded-xl text-center">
+                <h3 class="font-bold mb-2">5. Live Ledger</h3>
+                <p class="text-sm text-slate-600">Your ledger updates in real-time.</p>
+            </div>
+
+        </div>
+    </section>
+
+</div>
+
+<!-- Contact Form (Popup) -->
+<div id="contactModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-slate-800 p-8 rounded-xl w-full max-w-lg relative">
+
+        <button onclick="closeContactForm()" class="absolute right-4 top-4 text-gray-500 hover:text-primary text-xl">✕</button>
+
+        <h2 class="text-2xl font-bold mb-4">Request Demo</h2>
+
+        <div class="flex flex-col gap-4">
+            <input type="text" class="p-3 rounded-lg bg-slate-100" placeholder="Full Name" />
+            <input type="email" class="p-3 rounded-lg bg-slate-100" placeholder="Email" />
+            <input type="text" class="p-3 rounded-lg bg-slate-100" placeholder="Company Name" />
+            <textarea class="p-3 rounded-lg bg-slate-100" rows="3" placeholder="Message"></textarea>
+
+            <button onclick="openBankForm()" class="w-full py-3 bg-primary text-[#1A2B44] rounded-lg font-bold">
+                Send Message
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- Second Modal (Bank Details Form) -->
+<div id="bankModal" class="hidden fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+    <div class="bg-white dark:bg-slate-800 p-8 rounded-xl w-full max-w-lg relative">
+
+        <button onclick="closeBankForm()" class="absolute right-4 top-4 text-gray-500 hover:text-primary text-xl">✕</button>
+
+        <h2 class="text-2xl font-bold mb-4">Bank Details</h2>
+
+        <div class="flex flex-col gap-4">
+            <input type="text" class="p-3 rounded-lg bg-slate-100" placeholder="Account Bank Name" />
+            <input type="text" class="p-3 rounded-lg bg-slate-100" placeholder="Branch Name" />
+            <input type="text" class="p-3 rounded-lg bg-slate-100" placeholder="Account Number" />
+
+            <label class="font-semibold">Integrate Bank Statement (PDF)</label>
+            <input type="file" accept="application/pdf" class="p-3 rounded-lg bg-slate-100" />
+
+            <label class="font-semibold">Upload Bills (Images/PDF)</label>
+            <input type="file" accept="image/*,application/pdf" multiple class="p-3 rounded-lg bg-slate-100" />
+
+            <button class="w-full py-3 bg-primary text-[#1A2B44] rounded-lg font-bold">
+                Submit
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- JS -->
+<script>
+    function openContactForm() {
+        document.getElementById("contactModal").classList.remove("hidden");
+    }
+    function closeContactForm() {
+        document.getElementById("contactModal").classList.add("hidden");
+    }
+    function openBankForm() {
+        closeContactForm();
+        document.getElementById("bankModal").classList.remove("hidden");
+    }
+    function closeBankForm() {
+        document.getElementById("bankModal").classList.add("hidden");
+    }
+</script>
+
+</body>
 </html>
